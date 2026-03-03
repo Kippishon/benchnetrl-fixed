@@ -1,0 +1,19 @@
+python3 ../../sac.py \
+  --gym-id HalfCheetah-v4 \
+  --total-timesteps 100000 \
+  --num-envs 1 \
+  --learning-starts 5000 \
+  --warmup-steps 1000 \
+  --buffer-size 100000 \
+  --batch-size 256 \
+  --learning-rate 3e-4 \
+  --policy-frequency 2 \
+  --target-network-frequency 1 \
+  --tau 0.005 \
+  --gamma 0.99 \
+  --alpha 0.2 \
+  --autotune True \
+  --track \
+  --wandb-project-name sac-test \
+  --exp-name sac_halfcheetah_test \
+  --seed 1
