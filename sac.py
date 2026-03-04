@@ -53,7 +53,7 @@ def parse_args():
 
     # Match PPO env-arg surface where relevant
     parser.add_argument("--obs-stack", type=int, default=1, help="the number of observations to stack (for continuous/classic wrappers)")
-    parser.add_argument("--masked-indices", type=str, default="1,3", help="indices of classic-control observations to mask")
+    parser.add_argument("--masked-indices", type=str, default="", help="indices of classic-control observations to mask")
     parser.add_argument("--frame-stack", type=int, default=1, help="frame stack for image environments")
 
     args = parser.parse_args()

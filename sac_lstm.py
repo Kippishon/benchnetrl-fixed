@@ -56,17 +56,19 @@ def parse_args():
 
     # Env args
     parser.add_argument("--obs-stack", type=int, default=1, help="obs stack for continuous/classic wrappers")
-    parser.add_argument("--masked-indices", type=str, default="1,3", help="indices of classic-control observations to mask")
+    parser.add_argument("--masked-indices", type=str, default="", help="indices of classic-control observations to mask")
     parser.add_argument("--frame-stack", type=int, default=1, help="frame stack for image environments")
 
     args = parser.parse_args()
     args.masked_indices = [int(x) for x in args.masked_indices.split(",")]
 
+    # Adjust batch_size to be divisible by num_steps for proper sequence sampling
     if args.batch_size % args.num_steps != 0:
-        raise ValueError(
-            f"For SAC-LSTM, --batch-size ({args.batch_size}) must be divisible by --num-steps ({args.num_steps}) "
-            "because training samples full sequences of length num_steps."
-        )
+        old_batch = args.batch_size
+        args.batch_size = (args.batch_size // args.num_steps) * args.num_steps
+        if args.batch_size == 0:
+            args.batch_size = args.num_steps
+        print(f"Adjusted batch_size from {old_batch} to {args.batch_size} (must be divisible by num_steps={args.num_steps})")
     return args
 
 
