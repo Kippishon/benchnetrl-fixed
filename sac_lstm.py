@@ -60,7 +60,7 @@ def parse_args():
     parser.add_argument("--frame-stack", type=int, default=1, help="frame stack for image environments")
 
     args = parser.parse_args()
-    args.masked_indices = [int(x) for x in args.masked_indices.split(",")]
+    args.masked_indices = [int(x) for x in args.masked_indices.split(",") if x]
 
     # Adjust batch_size to be divisible by num_steps for proper sequence sampling
     if args.batch_size % args.num_steps != 0:
